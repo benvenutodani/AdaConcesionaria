@@ -4,11 +4,12 @@ import org.concesionaria.concesionaria.exceptions.ResourceNotFoundException;
 import org.concesionaria.concesionaria.dto.ClienteDTO;
 import org.concesionaria.concesionaria.entity.Cliente;
 import org.concesionaria.concesionaria.repository.ClienteRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Service
 public class ClienteService {
     private ClienteRepository clienteRepository;
 

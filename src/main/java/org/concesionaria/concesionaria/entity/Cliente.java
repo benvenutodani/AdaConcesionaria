@@ -20,8 +20,8 @@ public class Cliente {
     @Column(name = "numero_identidad", nullable = false)
     private String numeroIdentidad;
 
-    @Column(name = "tipo_identidad", nullable = false)
-    private String tipoIdentidad;
+    @Column(name = "tipo_identidad_id", nullable = false)
+    private Integer tipoIdentidad;
 
     @Column(nullable = false)
     private String telefono;
@@ -31,7 +31,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String nombre, String apellido, String numeroIdentidad, String tipoIdentidad, String telefono, String email) {
+    public Cliente(String nombre, String apellido, String numeroIdentidad, Integer tipoIdentidad, String telefono, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.numeroIdentidad = numeroIdentidad;
@@ -72,11 +72,11 @@ public class Cliente {
         this.numeroIdentidad = numeroIdentidad;
     }
 
-    public String getTipoIdentidad() {
+    public Integer getTipoIdentidad() {
         return tipoIdentidad;
     }
 
-    public void setTipoIdentidad(String tipoIdentidad) {
+    public void setTipoIdentidad(Integer tipoIdentidad) {
         this.tipoIdentidad = tipoIdentidad;
     }
 

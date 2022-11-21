@@ -1,15 +1,13 @@
 package org.concesionaria.concesionaria.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="auto")
 public class Auto {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="numero_chasis")
     private String numeroChasis;
 
@@ -22,18 +20,19 @@ public class Auto {
     @Column(nullable = false)
     private String color;
 
-    @Column(name="marca_id", nullable = false)
-    private Integer marcaId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "marca_id", nullable = false)
+    private Marca marca;
 
-    public Auto(){
+    public Auto (){
     }
 
-    public Auto(String numeroChasis, String modelo, Integer anioModelo, String color, Integer marcaId) {
-        this.numeroChasis = numeroChasis;
+    public Auto(String modelo, Integer anioModelo, String color, Marca  marca) {
+
         this.modelo = modelo;
         this.anioModelo = anioModelo;
         this.color = color;
-        this.marcaId = marcaId;
+        this.marca= marca;
     }
 
     public String getNumeroChasis() {
@@ -52,7 +51,8 @@ public class Auto {
         return color;
     }
 
-    public Integer getMarcaId() {
-        return marcaId;
+    public Marca getMarca() {
+        return marca;
     }
+
 }

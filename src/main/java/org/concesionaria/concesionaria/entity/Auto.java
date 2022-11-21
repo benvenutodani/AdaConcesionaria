@@ -19,6 +19,8 @@ public class Auto {
 
     @Column(nullable = false)
     private String color;
+    @Column(nullable = false)
+    private Double precio;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "marca_id", nullable = false)
@@ -27,11 +29,12 @@ public class Auto {
     public Auto (){
     }
 
-    public Auto(String modelo, Integer anioModelo, String color, Marca  marca) {
+    public Auto(String modelo, Integer anioModelo, String color, Double precio, Marca  marca) {
 
         this.modelo = modelo;
         this.anioModelo = anioModelo;
         this.color = color;
+        this.precio=precio;
         this.marca= marca;
     }
 
@@ -55,4 +58,7 @@ public class Auto {
         return marca;
     }
 
+    public Double getPrecio() {
+        return precio;
+    }
 }

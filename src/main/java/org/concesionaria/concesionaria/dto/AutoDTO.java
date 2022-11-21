@@ -12,11 +12,13 @@ public class AutoDTO {
     @JsonAlias ("anio_modelo")
     private Integer anioModelo;
     private String color;
+    private Double precio;
 
-    public AutoDTO(String modelo, Integer anioModelo, String color) {
+    public AutoDTO(String modelo, Integer anioModelo, String color, Double precio) {
         this.modelo = modelo;
         this.anioModelo = anioModelo;
         this.color = color;
+        this.precio = precio;
     }
 
     public void setNumeroChasis(String numeroChasis) {
@@ -36,4 +38,6 @@ public class AutoDTO {
     public String getColor(){
         return color;
     }
+
+    public Double getPrecio() {return precio;}
 }

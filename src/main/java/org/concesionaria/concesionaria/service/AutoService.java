@@ -41,14 +41,14 @@ public class AutoService {
     }
 
     private AutoDTO mapToDto(Auto auto) {
-        AutoDTO autoDTO = new AutoDTO(auto.getModelo(),auto.getAnioModelo(),auto.getColor());
+        AutoDTO autoDTO = new AutoDTO(auto.getModelo(),auto.getAnioModelo(),auto.getColor(), auto.getPrecio());
         autoDTO.setNumeroChasis(auto.getNumeroChasis());
         return autoDTO;
     }
 
     private Auto mapToEntity(AutoDTO autoDTO, Marca marca) {
         Auto auto = new Auto(autoDTO.getModelo(),autoDTO.getAnioModelo(),
-                autoDTO.getColor(), marca);
+                autoDTO.getColor(), autoDTO.getPrecio(), marca);
         return auto;
     }
 

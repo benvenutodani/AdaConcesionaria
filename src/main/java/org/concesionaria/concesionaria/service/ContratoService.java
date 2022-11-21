@@ -42,7 +42,8 @@ public class ContratoService {
     /*cambiar los get*/
     private ContratoDTO mapToDTO(Contrato contrato) {
 
-        ContratoDTO contratoDTO = new ContratoDTO(contrato.getCliente(),contrato.getVendedor(), contrato.getAuto(), contrato.getMetodoPago(), contrato.getFecha().toString(),contrato.getCuotas(), contrato.getCuotas())
+        ContratoDTO contratoDTO = new ContratoDTO(contrato.getCliente(),contrato.getVendedor(), contrato.getAuto(),
+                                    contrato.getMetodoPago(), contrato.getFecha().toString(),contrato.getCuotas());
 
     }
     /*cambiar los get*/

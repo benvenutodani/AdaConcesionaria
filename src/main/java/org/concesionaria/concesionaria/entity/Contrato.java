@@ -36,7 +36,7 @@ public class Contrato {
     @Column(nullable = false)
     private Double precio;
 
-    public Contrato(String cliente, String vendedor, String auto, String metodoPago, LocalDate parse, int i) {
+    public Contrato(Cliente cliente, Vendedor vendedor, Vendedor auto, MetodoPago metodoPago, LocalDate parse, Double precio) {
     }
 
     public Contrato(Cliente cliente, Vendedor vendedor, Auto auto, MetodoPago metodoPago,
@@ -50,8 +50,8 @@ public class Contrato {
         this.precio = precio;
     }
 
-    public Contrato(String cliente, String vendedor, String auto,
-                    String metodoPago, LocalDate fecha, Double precio) {
+    public Contrato(Cliente cliente, Vendedor vendedor, Auto auto,
+                    MetodoPago metodoPago, LocalDate fecha, Double precio) {
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.auto = auto;

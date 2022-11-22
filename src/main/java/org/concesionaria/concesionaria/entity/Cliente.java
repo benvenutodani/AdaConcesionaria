@@ -3,6 +3,7 @@ package org.concesionaria.concesionaria.entity;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -21,17 +22,20 @@ public class Cliente {
     private String numeroIdentidad;
 
     @Column(name = "tipo_identidad_id", nullable = false)
-    private Integer tipoIdentidad;
+    private TipoIdentidad tipoIdentidad;
 
     @Column(nullable = false)
     private String telefono;
 
     private String email;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Contrato> contratos;
+
     public Cliente() {
     }
 
-    public Cliente(String nombre, String apellido, String numeroIdentidad, Integer tipoIdentidad, String telefono, String email) {
+    public Cliente(String nombre, String apellido, String numeroIdentidad, TipoIdentidad tipoIdentidad, String telefono, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.numeroIdentidad = numeroIdentidad;
@@ -72,11 +76,11 @@ public class Cliente {
         this.numeroIdentidad = numeroIdentidad;
     }
 
-    public Integer getTipoIdentidad() {
+    public TipoIdentidad getTipoIdentidad() {
         return tipoIdentidad;
     }
 
-    public void setTipoIdentidad(Integer tipoIdentidad) {
+    public void setTipoIdentidad(TipoIdentidad tipoIdentidad) {
         this.tipoIdentidad = tipoIdentidad;
     }
 

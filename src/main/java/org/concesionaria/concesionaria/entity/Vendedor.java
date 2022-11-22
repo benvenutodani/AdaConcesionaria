@@ -1,9 +1,7 @@
 package org.concesionaria.concesionaria.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "vendedor")
@@ -21,7 +19,7 @@ public class Vendedor {
     private String numeroIdentidad;
 
     @Column(name = "tipo_identidad_id", nullable = false)
-    private Integer tipoIdentidad;
+    private TipoIdentidad tipoIdentidad;
 
     @Column(nullable = false)
     private String telefono;
@@ -29,11 +27,14 @@ public class Vendedor {
     @Column(nullable = false)
     private String email;
 
+    @OneToMany(mappedBy = "vendedor")
+    private List<Contrato> contratos;
+
     public Vendedor() {
     }
 
     public Vendedor(String cuil, String nombre, String apellido,
-                    String numeroIdentidad, Integer tipoIdentidad,
+                    String numeroIdentidad, TipoIdentidad tipoIdentidad,
                     String telefono, String email) {
         this.cuil = cuil;
         this.nombre = nombre;
@@ -76,11 +77,11 @@ public class Vendedor {
         this.numeroIdentidad = numeroIdentidad;
     }
 
-    public Integer getTipoIdentidad() {
+    public TipoIdentidad getTipoIdentidad() {
         return tipoIdentidad;
     }
 
-    public void setTipoIdentidad(Integer tipoIdentidad) {
+    public void setTipoIdentidad(TipoIdentidad tipoIdentidad) {
         this.tipoIdentidad = tipoIdentidad;
     }
 

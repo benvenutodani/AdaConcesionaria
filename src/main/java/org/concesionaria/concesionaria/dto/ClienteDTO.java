@@ -14,13 +14,13 @@ public class ClienteDTO {
     private String numeroIdentidad;
 
     @JsonAlias("tipo_identidad_id")
-    private Integer tipoIdentidad;
+    private String tipoIdentidad;
 
     private String telefono;
 
     private String email;
 
-    public ClienteDTO(String nombre, String apellido, String numeroIdentidad, Integer tipoIdentidad, String telefono, String email) {
+    public ClienteDTO(String nombre, String apellido, String numeroIdentidad, String tipoIdentidad, String telefono, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.numeroIdentidad = numeroIdentidad;
@@ -45,7 +45,7 @@ public class ClienteDTO {
         return numeroIdentidad;
     }
 
-    public Integer getTipoIdentidad() {
+    public String getTipoIdentidad() {
         return tipoIdentidad;
     }
 

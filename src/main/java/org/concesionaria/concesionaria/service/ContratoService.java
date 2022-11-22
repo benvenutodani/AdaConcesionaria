@@ -42,16 +42,20 @@ public class ContratoService {
     /*cambiar los get*/
     private ContratoDTO mapToDTO(Contrato contrato) {
 
-        ContratoDTO contratoDTO = new ContratoDTO(contrato.getCliente(),contrato.getVendedor(), contrato.getAuto(),
-                                    contrato.getMetodoPago(), contrato.getFecha().toString(),contrato.getCuotas());
+        ContratoDTO contratoDTO = new ContratoDTO(contrato.getCliente().getId().toString(),
+                contrato.getVendedor().getNumeroIdentidad(),
+                contrato.getAuto().getNumeroChasis(), contrato.getMetodoPago().getId().toString(),
+                contrato.getFecha().toString(),contrato.getCuotas().toString(), contrato.getPrecio());
+        return  contratoDTO;
 
     }
     /*cambiar los get*/
     private static Contrato mapToEntity(ContratoDTO contratoDto) {
 
-        Contrato contrato= new Contrato(contratoDto.getCliente(), contratoDto.getVendedor(), contratoDto.getAuto(), contratoDto.getMetodoPago(),
-                                        LocalDate.parse(contratoDto.getFecha(), DATE_TIME_FORMATTER),contratoDto.getPrecio() );
-
+        Contrato contrato= new Contrato(contratoDto.getCliente(),contratoDto.getVendedor(),
+                contratoDto.getAuto(),contratoDto.getMetodoPago(),
+                LocalDate.parse(contratoDto.getFecha(), DATE_TIME_FORMATTER),contratoDto.getCuotas(),
+                contratoDto.getPrecio());
         return contrato;
     }
 }

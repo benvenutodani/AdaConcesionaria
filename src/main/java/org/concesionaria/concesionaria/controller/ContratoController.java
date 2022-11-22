@@ -19,8 +19,8 @@ public class ContratoController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestBody ContratoDTO contratoDto){
-        ContratoDTO contratoDTO = ContratoService.create(contratoDto);
-        return new ResponseEntity (contratoDto, HttpStatus.CREATED);
+    public ResponseEntity create(@RequestBody ContratoDTO contratoDTO){
+        ContratoDTO createcontratoDTO = contratoService.create(contratoDTO);
+        return new ResponseEntity (contratoDTO, HttpStatus.CREATED);
     }
 }

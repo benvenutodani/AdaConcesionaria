@@ -21,7 +21,13 @@ public class ContratoDTO {
 
     private Double precio;
 
-    public ContratoDTO(String cliente, String vendedor, String auto, String metodoPago, String fecha, Integer cuotas, Double precio) {
+
+    public ContratoDTO(String cliente, String numeroIdentidad, String numeroChasis, String metodoPago, String fecha, String s, Double precio) {
+    }
+
+    public ContratoDTO(String cliente, String vendedor,
+                       String auto, String metodoPago, String fecha,
+                       Integer cuotas, Double precio) {
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.auto = auto;
@@ -31,21 +37,10 @@ public class ContratoDTO {
         this.precio = precio;
     }
 
-    public ContratoDTO(String cliente, String vendedor, String auto,
-                       String metodoPago, String fecha, Integer cuotas,
-                       ) {
-        this.cliente = cliente;
-        this.vendedor = vendedor;
-        this.auto = auto;
-        this.metodoPago = metodoPago;
-        this.fecha = fecha;
-        this.cuotas = cuotas;
-
-    }
-
     public Integer getId() {
         return id;
     }
+
 
     public String getCliente() {
         return cliente;

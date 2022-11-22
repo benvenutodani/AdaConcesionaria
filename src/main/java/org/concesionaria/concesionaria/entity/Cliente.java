@@ -3,6 +3,7 @@ package org.concesionaria.concesionaria.entity;
 import com.fasterxml.jackson.annotation.JsonAlias;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -27,6 +28,9 @@ public class Cliente {
     private String telefono;
 
     private String email;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Contrato> contratos;
 
     public Cliente() {
     }

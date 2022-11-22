@@ -1,6 +1,7 @@
 package org.concesionaria.concesionaria.entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="auto")
@@ -25,6 +26,9 @@ public class Auto {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "marca_id", nullable = false)
     private Marca marca;
+
+    @OneToMany(mappedBy = "auto")
+    private List<Contrato> contratos;
 
     public Auto (){
     }

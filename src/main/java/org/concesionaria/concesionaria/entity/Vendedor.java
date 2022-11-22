@@ -1,9 +1,7 @@
 package org.concesionaria.concesionaria.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "vendedor")
@@ -28,6 +26,9 @@ public class Vendedor {
 
     @Column(nullable = false)
     private String email;
+
+    @OneToMany(mappedBy = "vendedor")
+    private List<Contrato> contratos;
 
     public Vendedor() {
     }

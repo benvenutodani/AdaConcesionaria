@@ -12,19 +12,19 @@ public class Contrato {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cliente_id",nullable = false)
     private Cliente cliente;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vendedor_id",nullable = false)
     private Vendedor vendedor;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "auto_id",nullable = false)
     private Auto auto;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="metodo_pago_id",nullable = false)
     private MetodoPago metodoPago;
 
@@ -36,7 +36,24 @@ public class Contrato {
     @Column(nullable = false)
     private Double precio;
 
-    public Contrato(String cliente, String vendedor, String auto, String metodoPago, LocalDate parse, int i) {
+    public Contrato() {
+    }
+
+    public Contrato(Integer id, Cliente cliente,
+                    Vendedor vendedor, Auto auto,
+                    MetodoPago metodoPago, Date fecha,
+                    Double cuotas, Double precio) {
+        this.id = id;
+        this.cliente = cliente;
+        this.vendedor = vendedor;
+        this.auto = auto;
+        this.metodoPago = metodoPago;
+        this.fecha = fecha;
+        this.cuotas = cuotas;
+        this.precio = precio;
+    }
+
+    public Contrato(String cliente, String vendedor, String auto, String metodoPago, LocalDate parse, int i, Double precio) {
     }
 
     public Contrato(Cliente cliente, Vendedor vendedor, Auto auto, MetodoPago metodoPago,
@@ -50,14 +67,14 @@ public class Contrato {
         this.precio = precio;
     }
 
-    public Contrato(String cliente, String vendedor, String auto,
-                    String metodoPago, LocalDate fecha, Double precio) {
+    public Contrato(Cliente cliente, Vendedor vendedor, Auto auto, MetodoPago metodoPago,
+                    Date fecha, Double cuotas) {
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.auto = auto;
         this.metodoPago = metodoPago;
         this.fecha = fecha;
-        this.precio = precio;
+        this.cuotas = cuotas;
     }
 
     public Integer getId() {

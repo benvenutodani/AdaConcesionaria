@@ -100,4 +100,29 @@ public class Vendedor {
     public void setEmail(String email) {
         this.email = email;
     }
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "cuil":
+                this.cuil = (String) newValue;
+                break;
+            case "nombre":
+                this.nombre = (String) newValue;
+                break;
+            case "apellido":
+                this.apellido = (String) newValue;
+                break;
+            case "numero_idendtidad":
+                this.numeroIdentidad = (String) newValue;
+                break;
+            case "tipo_identidad_id":
+                this.tipoIdentidad= (Integer) newValue;
+                break;
+            case "telefono":
+                this.telefono = (String) newValue;
+                break;
+            case "email":
+                this.email = (String) newValue;
+                break;
+        }
+    }
 }

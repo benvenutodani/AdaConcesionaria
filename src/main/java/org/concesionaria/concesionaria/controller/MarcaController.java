@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping(path="/marcas")
 public class MarcaController {
@@ -31,10 +33,27 @@ public class MarcaController {
     }
 
     @GetMapping("/{marcaId}")
-    public ResponseEntity retrieveById(@PathVariable Integer marcaId) {
-        MarcaDTO marcaDTO = marcaService.retrieveById(marcaId);
+    public ResponseEntity retrieveById(@PathVariable String marcaId) {
+        MarcaDTO marcaDTO = marcaService.retrieveById(Integer.valueOf(marcaId));
 
         return new ResponseEntity(marcaDTO, HttpStatus.OK);
+    }
+    @DeleteMapping("/{maracId}")
+    public ResponseEntity delete(@PathVariable String marcaId){
+        marcaService.delete(Integer.valueOf(marcaId));
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @PutMapping("/{marcaId}")
+    public ResponseEntity replace(@PathVariable String marcaId,
+                                  @RequestBody MarcaDTO marcaDTO){
+        marcaService.replace(Integer.valueOf(marcaId),marcaDTO);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @PatchMapping
+    public ResponseEntity modify(@PathVariable String marcaId,
+                                 @RequestBody Map<Integer,Object> fieldsToModify){
+        marcaService.modify(Integer.valueOf(marcaId),fieldsToModify);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

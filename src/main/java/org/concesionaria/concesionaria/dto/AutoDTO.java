@@ -14,8 +14,13 @@ public class AutoDTO {
     private String color;
     private Double precio;
 
-    public AutoDTO(String modelo, Integer anioModelo, String color, Double precio) {
+
+
+    public AutoDTO(String numeroChasis, String modelo,
+                   Integer marcaId, Integer anioModelo, String color, Double precio) {
+        this.numeroChasis = numeroChasis;
         this.modelo = modelo;
+        this.marcaId = marcaId;
         this.anioModelo = anioModelo;
         this.color = color;
         this.precio = precio;
@@ -24,7 +29,9 @@ public class AutoDTO {
     public void setNumeroChasis(String numeroChasis) {
         this.numeroChasis = numeroChasis;
     }
-
+    public String getNumeroChasis() {
+        return numeroChasis;
+    }
     public String getModelo() {
         return modelo;
     }

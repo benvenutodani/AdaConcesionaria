@@ -1,24 +1,19 @@
 package org.concesionaria.concesionaria.dto;
 
-public class MetodoPagoDTO {
+public class TipoIdentidadDTO {
+
     private String tipo;
-    private String descripcion;
     private Integer id;
-    public MetodoPagoDTO (String tipo, String descripcion) {
+
+    public TipoIdentidadDTO(String tipo) {
         this.tipo = tipo;
-        this.descripcion = descripcion;
     }
 
     public String getTipo() {
         return tipo;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
     public Integer getId() {
         return id;
     }
 }
-

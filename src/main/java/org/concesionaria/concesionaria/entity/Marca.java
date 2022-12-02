@@ -15,9 +15,6 @@ public class Marca {
     @Column(nullable = false)
     private String nacionalidad;
 
-    @OneToMany(mappedBy = "marca", fetch = FetchType.LAZY,
-            cascade = CascadeType.REMOVE)
-    private List<Auto> autos;
 
     public Marca() {
     }
@@ -32,6 +29,14 @@ public class Marca {
         return id;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setNacionalidad(String nacionalidad) {
+        this.nacionalidad = nacionalidad;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -40,11 +45,15 @@ public class Marca {
         return nacionalidad;
     }
 
-    public List<Auto> getAutos() {
-        if (autos == null) {
-            autos = new ArrayList<>();
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "nombre":
+                this.nombre = (String) newValue;
+                break;
+            case "nacionalidad":
+                this.nacionalidad = (String) newValue;
+                break;
         }
-
-        return autos;
     }
+
 }

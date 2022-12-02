@@ -2,12 +2,12 @@ package org.concesionaria.concesionaria.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Table(name= "contrato")
 public class Contrato {
-
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -29,46 +29,19 @@ public class Contrato {
     private MetodoPago metodoPago;
 
     @Column(nullable = false)
-    private Date fecha;
+    private LocalDate fecha;
 
     private Double cuotas;
 
     @Column(nullable = false)
     private Double precio;
 
+
     public Contrato() {
     }
 
-    public Contrato(Integer id, Cliente cliente,
-                    Vendedor vendedor, Auto auto,
-                    MetodoPago metodoPago, Date fecha,
-                    Double cuotas, Double precio) {
-        this.id = id;
-        this.cliente = cliente;
-        this.vendedor = vendedor;
-        this.auto = auto;
-        this.metodoPago = metodoPago;
-        this.fecha = fecha;
-        this.cuotas = cuotas;
-        this.precio = precio;
-    }
-
-    public Contrato(String cliente, String vendedor, String auto, String metodoPago, LocalDate parse, int i, Double precio) {
-    }
-
     public Contrato(Cliente cliente, Vendedor vendedor, Auto auto, MetodoPago metodoPago,
-                    Date fecha, Double cuotas, Double precio) {
-        this.cliente = cliente;
-        this.vendedor = vendedor;
-        this.auto = auto;
-        this.metodoPago = metodoPago;
-        this.fecha = fecha;
-        this.cuotas = cuotas;
-        this.precio = precio;
-    }
-
-    public Contrato(Cliente cliente, Vendedor vendedor, Auto auto, MetodoPago metodoPago,
-                    Date fecha, Double cuotas) {
+                    LocalDate fecha, Double cuotas) {
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.auto = auto;
@@ -113,11 +86,11 @@ public class Contrato {
         this.metodoPago = metodoPago;
     }
 
-    public Date getFecha() {
+    public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(Date fecha) {
+    public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
     }
 
@@ -136,4 +109,28 @@ public class Contrato {
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
+
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "cliente":
+                this.cliente = (Cliente) newValue;
+                break;
+            case "vendedor":
+                this.vendedor = (Vendedor) newValue;
+                break;
+            case "auto":
+                this.auto = (Auto) newValue;
+                break;
+            case "Metodo_pago":
+                this.metodoPago = (MetodoPago) newValue;
+                break;
+            case "fecha":
+                this.fecha= LocalDate.parse((String) newValue, DATE_TIME_FORMATTER);
+                break;
+            case "cuotas":
+                this.cuotas = (Double) newValue;
+                break;
+        }
+    }
+
 }

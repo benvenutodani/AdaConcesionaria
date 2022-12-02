@@ -8,13 +8,10 @@ public class MarcaDTO {
     private String nombre;
     private  String nacionalidad;
 
-    private List<AutoDTO> autoDTOS;
 
-    public MarcaDTO(Integer id, String nombre, String nacionalidad, List<AutoDTO> autoDTOS) {
-        this.id = id;
+    public MarcaDTO(String nombre, String nacionalidad) {
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
-        this.autoDTOS = autoDTOS;
     }
 
 
@@ -30,7 +27,8 @@ public class MarcaDTO {
         return nacionalidad;
     }
 
-    public List<AutoDTO> getAutoDTOS() {
-        return autoDTOS;
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

@@ -5,20 +5,28 @@ import org.concesionaria.concesionaria.dto.VendedorDTO;
 
 import org.concesionaria.concesionaria.entity.Cliente;
 import org.concesionaria.concesionaria.entity.Vendedor;
+import org.concesionaria.concesionaria.exceptions.ExistingResourceException;
 import org.concesionaria.concesionaria.exceptions.ResourceNotFoundException;
 import org.concesionaria.concesionaria.repository.VendedorRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class VendedorService {
-    private VendedorRepository vendedorRepository;
+    private final VendedorRepository vendedorRepository;
+
+    public VendedorService(VendedorRepository vendedorRepository) {
+        this.vendedorRepository = vendedorRepository;
+    }
 
     /*Método para agregar un nuevo vendedor a la base de datos*/
     public VendedorDTO create(VendedorDTO vendedorDTO) {
         Vendedor vendedor = mapToEntity(vendedorDTO);
+        checkForExistingVendedor(vendedor.getCuil());
         vendedor = vendedorRepository.save(vendedor);
         return vendedorDTO;
     }
@@ -37,25 +45,72 @@ public class VendedorService {
     public VendedorDTO retrieveById(String vendedorId) {
 
         Optional<Vendedor> vendedor = vendedorRepository.findById(vendedorId);
-        if (vendedor.isEmpty()) {
+        if (vendedor.isPresent()) {
             throw new ResourceNotFoundException();
         }
         return mapToDTO(vendedor.get());
 
     }
 
+    /*delete vendedor por id*/
+    public void delete(String vendedorId) {
+        try {
+            vendedorRepository.deleteById(vendedorId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException();
+        }
+    }
+
+    /*reemplazar todos los campos de un registro de vendedor*/
+    public void replace(String vendedorId, VendedorDTO vendedorDto) {
+        Optional<Vendedor> vendedor = vendedorRepository.findById(vendedorId);
+        if (vendedor.isPresent()) {
+            throw new ResourceNotFoundException();
+        }
+        Vendedor vendedorToReplace = vendedor.get();
+        vendedorToReplace.setCuil(vendedorDto.getCuil());
+        vendedorToReplace.setNombre(vendedorDto.getNombre());
+        vendedorToReplace.setApellido(vendedorDto.getApellido());
+        vendedorToReplace.setNumeroIdentidad(vendedorDto.getNumeroIdentidad());
+        vendedorToReplace.setTipoIdentidad(vendedorDto.getTipoIdentidad());
+        vendedorToReplace.setTelefono(vendedorDto.getTelefono());
+        vendedorToReplace.setEmail(vendedorDto.getEmail());
+        vendedorRepository.save(vendedorToReplace);
+    }
+
+    /*modificar un  o varios campos de un vendedor*/
+    public void modify(String vendedorId, Map<String, Object> fieldsToModify) {
+        Optional<Vendedor> vendedor = vendedorRepository.findById(vendedorId);
+        if (vendedor.isPresent()) {
+            throw new ResourceNotFoundException();
+        }
+        Vendedor vendedorToModify = vendedor.get();
+
+        fieldsToModify.forEach((key, value) -> vendedorToModify.modifyAttributeValue(key, value));
+        vendedorRepository.save(vendedorToModify);
+    }
+
+    //-----------------------------------------------------------------------------------------------------------------------
+
+    private void checkForExistingVendedor(String vendedorId) {
+        if (vendedorRepository.existsById(vendedorId)) {
+            throw new ExistingResourceException();
+        }
+    }
 
     private Vendedor mapToEntity(VendedorDTO vendedorDTO) {
-        Vendedor vendedor = new Vendedor(vendedorDTO.getCuil(), vendedorDTO.getNombre(), vendedorDTO.getApellido(), vendedorDTO.getNumeroIdentidad(),
-                vendedorDTO.getTipoIdentidad(), vendedorDTO.getTelefono(), vendedorDTO.getEmail());
+        Vendedor vendedor = new Vendedor(vendedorDTO.getCuil(), vendedorDTO.getNombre(), vendedorDTO.getApellido(),
+                vendedorDTO.getNumeroIdentidad(), vendedorDTO.getTipoIdentidad(), vendedorDTO.getTelefono(),
+                vendedorDTO.getEmail());
         return vendedor;
     }
 
     private VendedorDTO mapToDTO(Vendedor vendedor) {
         VendedorDTO vendedorDTO = new VendedorDTO(vendedor.getCuil(), vendedor.getNombre(), vendedor.getApellido(),
-                vendedor.getNumeroIdentidad(), vendedor.getTipoIdentidad(), vendedor.getTelefono(), vendedor.getEmail());
+                vendedor.getNumeroIdentidad(), vendedor.getTipoIdentidad(), vendedor.getTelefono(),
+                vendedor.getEmail());
         return vendedorDTO;
     }
 
-}
 
+}

@@ -1,7 +1,5 @@
 package org.concesionaria.concesionaria.entity;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -99,5 +97,28 @@ public class Cliente {
     public void setEmail(String email) {
         this.email = email;
     }
-}
 
+
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "nombre":
+                this.nombre = (String) newValue;
+                break;
+            case "apellido":
+                this.apellido = (String) newValue;
+                break;
+            case "numero_identidad":
+                this.numeroIdentidad = (String) newValue;
+                break;
+            case "tipo_identidad_id":
+                this.tipoIdentidad = (Integer) newValue;
+                break;
+            case "telefono":
+                this.telefono = (String) newValue;
+                break;
+            case "email":
+                this.email = (String) newValue;
+                break;
+        }
+    }
+}

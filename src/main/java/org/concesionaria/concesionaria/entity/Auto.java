@@ -8,7 +8,6 @@ import java.util.List;
 public class Auto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="numero_chasis")
     private String numeroChasis;
 
@@ -23,9 +22,8 @@ public class Auto {
     @Column(nullable = false)
     private Double precio;
 
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "marca_id", nullable = false)
-    private Marca marca;
+    private Integer marcaId;
 
     @OneToMany(mappedBy = "auto")
     private List<Contrato> contratos;
@@ -33,15 +31,37 @@ public class Auto {
     public Auto (){
     }
 
-    public Auto(String modelo, Integer anioModelo, String color, Double precio, Marca  marca) {
-
+    public Auto(String numeroChasis, String modelo,
+                Integer anioModelo, String color, Double precio, Integer marca) {
+        this.numeroChasis = numeroChasis;
         this.modelo = modelo;
         this.anioModelo = anioModelo;
         this.color = color;
-        this.precio=precio;
-        this.marca= marca;
+        this.precio = precio;
+        this.marcaId = marca;
     }
-
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "numero_chasis":
+                this.numeroChasis = (String) newValue;
+                break;
+            case "modelo":
+                this.modelo = (String) newValue;
+                break;
+            case "anio_modelo":
+                this.anioModelo = (Integer) newValue;
+                break;
+            case "color":
+                this.color = (String) newValue;
+                break;
+            case "precio":
+                this.precio = (Double) newValue;
+                break;
+            case "marca_id":
+                this.marcaId = (Integer) newValue;
+                break;
+        }
+    }
     public String getNumeroChasis() {
         return numeroChasis;
     }
@@ -58,11 +78,35 @@ public class Auto {
         return color;
     }
 
-    public Marca getMarca() {
-        return marca;
+    public Integer getMarcaId() {
+        return marcaId;
     }
 
     public Double getPrecio() {
         return precio;
+    }
+
+    public void setNumeroChasis(String numeroChasis) {
+        this.numeroChasis = numeroChasis;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setAnioModelo(Integer anioModelo) {
+        this.anioModelo = anioModelo;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public void setMarcaId(Integer marcaId) {
+        this.marcaId = marcaId;
     }
 }

@@ -21,8 +21,7 @@ public class MetodoPago {
     public MetodoPago() {
     }
 
-    public MetodoPago(Integer id, String tipo, String descripcion) {
-        this.id = id;
+    public MetodoPago( String tipo, String descripcion) {
         this.tipo = tipo;
         this.descripcion = descripcion;
     }
@@ -38,4 +37,29 @@ public class MetodoPago {
     public String getDescripcion() {
         return descripcion;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "tipo":
+                this.tipo = (String) newValue;
+                break;
+            case "descripcion":
+                this.descripcion = (String) newValue;
+                break;
+        }
+    }
+
+
 }

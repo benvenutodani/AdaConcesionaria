@@ -1,7 +1,5 @@
 package org.concesionaria.concesionaria.entity;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class Cliente {
     private String numeroIdentidad;
 
     @Column(name = "tipo_identidad_id", nullable = false)
-    private TipoIdentidad tipoIdentidad;
+    private Integer tipoIdentidad;
 
     @Column(nullable = false)
     private String telefono;
@@ -35,7 +33,7 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String nombre, String apellido, String numeroIdentidad, TipoIdentidad tipoIdentidad, String telefono, String email) {
+    public Cliente(String nombre, String apellido, String numeroIdentidad, Integer tipoIdentidad, String telefono, String email) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.numeroIdentidad = numeroIdentidad;
@@ -76,11 +74,11 @@ public class Cliente {
         this.numeroIdentidad = numeroIdentidad;
     }
 
-    public TipoIdentidad getTipoIdentidad() {
+    public Integer getTipoIdentidad() {
         return tipoIdentidad;
     }
 
-    public void setTipoIdentidad(TipoIdentidad tipoIdentidad) {
+    public void setTipoIdentidad(Integer tipoIdentidad) {
         this.tipoIdentidad = tipoIdentidad;
     }
 
@@ -99,5 +97,28 @@ public class Cliente {
     public void setEmail(String email) {
         this.email = email;
     }
-}
 
+
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "nombre":
+                this.nombre = (String) newValue;
+                break;
+            case "apellido":
+                this.apellido = (String) newValue;
+                break;
+            case "numero_identidad":
+                this.numeroIdentidad = (String) newValue;
+                break;
+            case "tipo_identidad_id":
+                this.tipoIdentidad = (Integer) newValue;
+                break;
+            case "telefono":
+                this.telefono = (String) newValue;
+                break;
+            case "email":
+                this.email = (String) newValue;
+                break;
+        }
+    }
+}

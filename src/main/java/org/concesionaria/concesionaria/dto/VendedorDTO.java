@@ -1,6 +1,7 @@
 package org.concesionaria.concesionaria.dto;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import org.concesionaria.concesionaria.entity.TipoIdentidad;
 
 public class VendedorDTO {
 
@@ -19,6 +20,8 @@ public class VendedorDTO {
     private String telefono;
 
     private String email;
+
+
 
     public VendedorDTO(String cuil, String nombre, String apellido,
                        String numeroIdentidad, Integer tipoIdentidad,

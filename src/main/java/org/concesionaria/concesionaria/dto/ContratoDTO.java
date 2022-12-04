@@ -5,29 +5,26 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 
 public class ContratoDTO {
     private Integer id;
-
-    private String cliente;
-
+    @JsonAlias("cliente_id")
+    private Integer cliente;
+    @JsonAlias("vendedor_id")
     private String vendedor;
-
+    @JsonAlias("auto_id")
     private String auto;
 
     @JsonAlias("metodo_pago")
-    private String metodoPago;
+    private Integer metodoPago;
 
     private String fecha;
 
-    private Integer cuotas;
+    private Double cuotas;
 
     private Double precio;
 
-
-    public ContratoDTO(String cliente, String numeroIdentidad, String numeroChasis, String metodoPago, String fecha, String s, Double precio) {
+    public ContratoDTO() {
     }
 
-    public ContratoDTO(String cliente, String vendedor,
-                       String auto, String metodoPago, String fecha,
-                       Integer cuotas, Double precio) {
+    public ContratoDTO(Integer cliente, String vendedor, String auto, Integer metodoPago, String fecha, Double cuotas, Double precio) {
         this.cliente = cliente;
         this.vendedor = vendedor;
         this.auto = auto;
@@ -41,8 +38,7 @@ public class ContratoDTO {
         return id;
     }
 
-
-    public String getCliente() {
+    public Integer getCliente() {
         return cliente;
     }
 
@@ -54,7 +50,7 @@ public class ContratoDTO {
         return auto;
     }
 
-    public String getMetodoPago() {
+    public Integer getMetodoPago() {
         return metodoPago;
     }
 
@@ -62,11 +58,43 @@ public class ContratoDTO {
         return fecha;
     }
 
-    public Integer getCuotas() {
+    public Double getCuotas() {
         return cuotas;
     }
 
     public Double getPrecio() {
         return precio;
+    }
+
+    public void setCliente(Integer cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setVendedor(String vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public void setAuto(String auto) {
+        this.auto = auto;
+    }
+
+    public void setMetodoPago(Integer metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setCuotas(Double cuotas) {
+        this.cuotas = cuotas;
+    }
+
+    public void setPrecio(Double precio) {
+        this.precio = precio;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

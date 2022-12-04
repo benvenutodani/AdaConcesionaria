@@ -6,8 +6,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
-@RequestMapping(path="/marcas")
+@RequestMapping(path="/marca")
 public class MarcaController {
 
     private final MarcaService marcaService;
@@ -18,11 +20,10 @@ public class MarcaController {
     }
 
     @PostMapping
-    public ResponseEntity create(@RequestHeader(value = "client-id") String clientId,
-                                 @RequestBody MarcaDTO marcaDTO){
+    public ResponseEntity create(@RequestBody MarcaDTO marcaDTO){
         MarcaDTO createMarcaDTO = marcaService.create(marcaDTO);
 
-        return new ResponseEntity(marcaDTO.getId(), HttpStatus.CREATED);
+        return new ResponseEntity(marcaDTO, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -31,10 +32,27 @@ public class MarcaController {
     }
 
     @GetMapping("/{marcaId}")
-    public ResponseEntity retrieveById(@PathVariable Integer marcaId) {
-        MarcaDTO marcaDTO = marcaService.retrieveById(marcaId);
+    public ResponseEntity retrieveById(@PathVariable String marcaId) {
+        MarcaDTO marcaDTO = marcaService.retrieveById(Integer.valueOf(marcaId));
 
         return new ResponseEntity(marcaDTO, HttpStatus.OK);
+    }
+    @DeleteMapping("/{marcaId}")
+    public ResponseEntity delete(@PathVariable Integer marcaId){
+        marcaService.delete(marcaId);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @PutMapping("/{marcaId}")
+    public ResponseEntity replace(@PathVariable String marcaId,
+                                  @RequestBody MarcaDTO marcaDTO){
+        marcaService.replace(Integer.valueOf(marcaId),marcaDTO);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @PatchMapping("/{marcaId}")
+    public ResponseEntity modify(@PathVariable Integer marcaId,
+                                 @RequestBody Map<String,Object> fieldsToModify){
+        marcaService.modify(marcaId,fieldsToModify);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
 }

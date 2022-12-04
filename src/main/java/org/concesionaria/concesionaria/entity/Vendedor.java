@@ -19,12 +19,11 @@ public class Vendedor {
     private String numeroIdentidad;
 
     @Column(name = "tipo_identidad_id", nullable = false)
-    private TipoIdentidad tipoIdentidad;
+    private Integer tipoIdentidad;
 
     @Column(nullable = false)
     private String telefono;
 
-    @Column(nullable = false)
     private String email;
 
     @OneToMany(mappedBy = "vendedor")
@@ -33,9 +32,18 @@ public class Vendedor {
     public Vendedor() {
     }
 
-    public Vendedor(String cuil, String nombre, String apellido,
-                    String numeroIdentidad, TipoIdentidad tipoIdentidad,
-                    String telefono, String email) {
+    public Vendedor(String cuil, String nombre, String apellido, String numeroIdentidad,
+                    Integer tipoIdentidad, String telefono) {
+        this.cuil = cuil;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.numeroIdentidad = numeroIdentidad;
+        this.tipoIdentidad = tipoIdentidad;
+        this.telefono = telefono;
+    }
+
+    public Vendedor(String cuil, String nombre, String apellido, String numeroIdentidad,
+                    Integer tipoIdentidad, String telefono, String email) {
         this.cuil = cuil;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -77,11 +85,11 @@ public class Vendedor {
         this.numeroIdentidad = numeroIdentidad;
     }
 
-    public TipoIdentidad getTipoIdentidad() {
+    public Integer getTipoIdentidad() {
         return tipoIdentidad;
     }
 
-    public void setTipoIdentidad(TipoIdentidad tipoIdentidad) {
+    public void setTipoIdentidad(Integer tipoIdentidad) {
         this.tipoIdentidad = tipoIdentidad;
     }
 
@@ -99,5 +107,30 @@ public class Vendedor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+            case "cuil":
+                this.cuil = (String) newValue;
+                break;
+            case "nombre":
+                this.nombre = (String) newValue;
+                break;
+            case "apellido":
+                this.apellido = (String) newValue;
+                break;
+            case "numero_idendtidad":
+                this.numeroIdentidad = (String) newValue;
+                break;
+            case "tipo_identidad_id":
+                this.tipoIdentidad= (Integer) newValue;
+                break;
+            case "telefono":
+                this.telefono = (String) newValue;
+                break;
+            case "email":
+                this.email = (String) newValue;
+                break;
+        }
     }
 }

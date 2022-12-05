@@ -58,57 +58,62 @@ public class Contrato {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
-
     public Vendedor getVendedor() {
         return vendedor;
-    }
-
-    public void setVendedor(Vendedor vendedor) {
-        this.vendedor = vendedor;
     }
 
     public Auto getAuto() {
         return auto;
     }
 
-    public void setAuto(Auto auto) {
-        this.auto = auto;
-    }
-
     public MetodoPago getMetodoPago() {
         return metodoPago;
-    }
-
-    public void setMetodoPago(MetodoPago metodoPago) {
-        this.metodoPago = metodoPago;
     }
 
     public LocalDate getFecha() {
         return fecha;
     }
 
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
     public Double getCuotas() {
         return cuotas;
-    }
-
-    public void setCuotas(Double cuotas) {
-        this.cuotas = cuotas;
     }
 
     public Double getPrecio() {
         return precio;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public void setAuto(Auto auto) {
+        this.auto = auto;
+    }
+
+    public void setMetodoPago(MetodoPago metodoPago) {
+        this.metodoPago = metodoPago;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public void setCuotas(Double cuotas) {
+        this.cuotas = cuotas;
+    }
+
     public void setPrecio(Double precio) {
         this.precio = precio;
     }
+
 
     public void modifyAttributeValue(String attributeName, Object newValue) {
         switch (attributeName) {

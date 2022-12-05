@@ -1,9 +1,15 @@
 package org.concesionaria.concesionaria.dto;
 
 public class MetodoPagoDTO {
+
     private Integer id;
+
     private String tipo;
+
     private String descripcion;
+
+    public MetodoPagoDTO() {
+    }
 
     public MetodoPagoDTO (String tipo, String descripcion) {
         this.tipo = tipo;

@@ -57,62 +57,62 @@ public class Vendedor {
         return cuil;
     }
 
-    public void setCuil(String cuil) {
-        this.cuil = cuil;
-    }
-
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public String getNumeroIdentidad() {
         return numeroIdentidad;
-    }
-
-    public void setNumeroIdentidad(String numeroIdentidad) {
-        this.numeroIdentidad = numeroIdentidad;
     }
 
     public Integer getTipoIdentidad() {
         return tipoIdentidad;
     }
 
-    public void setTipoIdentidad(Integer tipoIdentidad) {
-        this.tipoIdentidad = tipoIdentidad;
-    }
-
     public String getTelefono() {
         return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setCuil(String cuil) {
+        this.cuil = cuil;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setNumeroIdentidad(String numeroIdentidad) {
+        this.numeroIdentidad = numeroIdentidad;
+    }
+
+    public void setTipoIdentidad(Integer tipoIdentidad) {
+        this.tipoIdentidad = tipoIdentidad;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public void modifyAttributeValue(String attributeName, Object newValue) {
         switch (attributeName) {
             case "cuil":
-                this.cuil = (String) newValue;
-                break;
+                this.cuil=(String) newValue;
             case "nombre":
                 this.nombre = (String) newValue;
                 break;

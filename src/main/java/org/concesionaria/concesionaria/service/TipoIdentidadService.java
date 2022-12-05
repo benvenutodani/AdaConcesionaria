@@ -1,7 +1,6 @@
 package org.concesionaria.concesionaria.service;
 
 import org.concesionaria.concesionaria.dto.TipoIdentidadDTO;
-import org.concesionaria.concesionaria.entity.Marca;
 import org.concesionaria.concesionaria.entity.TipoIdentidad;
 import org.concesionaria.concesionaria.exceptions.ExistingResourceException;
 import org.concesionaria.concesionaria.exceptions.ResourceNotFoundException;
@@ -77,28 +76,33 @@ public class TipoIdentidadService {
 
         TipoIdentidad tipoIdentidadToModify = tipoIdentidad.get();
 
-        fieldsToModify.forEach((key, value) -> tipoIdentidadToModify.modifyAttributeValue(String.valueOf(key), value));
+        fieldsToModify.forEach((key, value) -> tipoIdentidadToModify.modifyAttributeValue(key, value));
         tipoIdentidadRepository.save(tipoIdentidadToModify);
     }
 
 
     //-------------------------------------------------------------------------------------------------------------------
 
-    private void CheckForExistingTipoIdentidad(Integer id) {
-        if (tipoIdentidadRepository.existsById(id)) {
+    private void CheckForExistingTipoIdentidad(Integer tipoIdentidadId) {
+        if (tipoIdentidadRepository.existsById(tipoIdentidadId)) {
             throw new ExistingResourceException();
         }
     }
 
     private TipoIdentidadDTO mapToDto(TipoIdentidad tipoIdentidad) {
         TipoIdentidadDTO tipoIdentidadDTO = new TipoIdentidadDTO(tipoIdentidad.getTipo());
+
         tipoIdentidadDTO.setId(tipoIdentidad.getId());
+
         return tipoIdentidadDTO;
 
     }
 
     private TipoIdentidad mapToEntity(TipoIdentidadDTO tipoIdentidadDTO) {
-        TipoIdentidad tipoIdentidad = new TipoIdentidad(tipoIdentidadDTO.getId(), tipoIdentidadDTO.getTipo());
+        TipoIdentidad tipoIdentidad = new TipoIdentidad( tipoIdentidadDTO.getTipo());
+
+        tipoIdentidadDTO.setId(tipoIdentidad.getId());
+
         return tipoIdentidad;
     }
 

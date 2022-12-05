@@ -49,7 +49,7 @@ public class VendedorController {
     public ResponseEntity replace (@PathVariable String vendedorId,
                                    @RequestBody VendedorDTO vendedorDTO){
         vendedorService.replace(vendedorId,vendedorDTO);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(vendedorDTO,HttpStatus.OK);
     }
 
     @PatchMapping("/{vendedorId}")

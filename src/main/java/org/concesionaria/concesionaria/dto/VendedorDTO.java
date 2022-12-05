@@ -21,7 +21,17 @@ public class VendedorDTO {
 
     private String email;
 
+    public VendedorDTO() {
+    }
 
+    public VendedorDTO(String cuil, String nombre, String apellido, String numeroIdentidad, Integer tipoIdentidad, String telefono) {
+        this.cuil = cuil;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.numeroIdentidad = numeroIdentidad;
+        this.tipoIdentidad = tipoIdentidad;
+        this.telefono = telefono;
+    }
 
     public VendedorDTO(String cuil, String nombre, String apellido,
                        String numeroIdentidad, Integer tipoIdentidad,
@@ -61,5 +71,33 @@ public class VendedorDTO {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setCuil(String cuil) {
+        this.cuil = cuil;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setNumeroIdentidad(String numeroIdentidad) {
+        this.numeroIdentidad = numeroIdentidad;
+    }
+
+    public void setTipoIdentidad(Integer tipoIdentidad) {
+        this.tipoIdentidad = tipoIdentidad;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

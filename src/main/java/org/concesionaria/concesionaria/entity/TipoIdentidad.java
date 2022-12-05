@@ -16,8 +16,8 @@ public class TipoIdentidad {
     public TipoIdentidad() {
     }
 
-    public TipoIdentidad(Integer id, String tipo) {
-        this.id = id;
+    public TipoIdentidad(String tipo) {
+
         this.tipo = tipo;
     }
 
@@ -27,6 +27,10 @@ public class TipoIdentidad {
 
     public String getTipo() {
         return tipo;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public void setTipo(String tipo) {

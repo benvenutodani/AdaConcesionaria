@@ -9,8 +9,10 @@ public class MetodoPago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     @Column(nullable = false)
     private String tipo;
+
     @Column(nullable = false)
     private String descripcion;
 

@@ -19,6 +19,7 @@ public class Auto {
 
     @Column(nullable = false)
     private String color;
+
     @Column(nullable = false)
     private Double precio;
 
@@ -31,8 +32,8 @@ public class Auto {
     public Auto (){
     }
 
-    public Auto(String numeroChasis, String modelo,
-                Integer anioModelo, String color, Double precio, Integer marca) {
+    public Auto(String numeroChasis, String modelo, Integer anioModelo, String color,
+                Double precio, Integer marca) {
         this.numeroChasis = numeroChasis;
         this.modelo = modelo;
         this.anioModelo = anioModelo;
@@ -40,28 +41,7 @@ public class Auto {
         this.precio = precio;
         this.marcaId = marca;
     }
-    public void modifyAttributeValue(String attributeName, Object newValue) {
-        switch (attributeName) {
-            case "numero_chasis":
-                this.numeroChasis = (String) newValue;
-                break;
-            case "modelo":
-                this.modelo = (String) newValue;
-                break;
-            case "anio_modelo":
-                this.anioModelo = (Integer) newValue;
-                break;
-            case "color":
-                this.color = (String) newValue;
-                break;
-            case "precio":
-                this.precio = (Double) newValue;
-                break;
-            case "marca_id":
-                this.marcaId = (Integer) newValue;
-                break;
-        }
-    }
+
     public String getNumeroChasis() {
         return numeroChasis;
     }
@@ -109,4 +89,26 @@ public class Auto {
     public void setMarcaId(Integer marcaId) {
         this.marcaId = marcaId;
     }
+
+    public void modifyAttributeValue(String attributeName, Object newValue) {
+        switch (attributeName) {
+
+            case "modelo":
+                this.modelo = (String) newValue;
+                break;
+            case "anio_modelo":
+                this.anioModelo = (Integer) newValue;
+                break;
+            case "color":
+                this.color = (String) newValue;
+                break;
+            case "precio":
+                this.precio = (Double) newValue;
+                break;
+            case "marca_id":
+                this.marcaId = (Integer) newValue;
+                break;
+        }
+    }
+
 }

@@ -37,6 +37,8 @@ public class ClienteService {
         return clientes.stream()
                 .map(cliente -> mapToDTO(cliente))
                 .collect(Collectors.toList());
+
+
     }
 
     /*Método para bucar un cliente desde la base de datos con el id del cliente*/
@@ -89,7 +91,7 @@ public class ClienteService {
 
         Cliente clienteToModify = cliente.get();
 
-        fieldsToModify.forEach((key, value) -> clienteToModify.modifyAttributeValue(String.valueOf(key), value));/*duda!!!*/
+        fieldsToModify.forEach((key, value) -> clienteToModify.modifyAttributeValue(key, value));/*duda!!!*/
         clienteRepository.save(clienteToModify);
 
     }
@@ -107,6 +109,7 @@ public class ClienteService {
     private Cliente mapToEntity(ClienteDTO clienteDTO) {
         Cliente cliente = new Cliente(clienteDTO.getNombre(), clienteDTO.getApellido(), clienteDTO.getNumeroIdentidad(),
                 clienteDTO.getTipoIdentidad(), clienteDTO.getTelefono(), clienteDTO.getEmail());
+        clienteDTO.setId(cliente.getId());
         return cliente;
     }
 
@@ -114,7 +117,6 @@ public class ClienteService {
     private ClienteDTO mapToDTO(Cliente cliente) {
         ClienteDTO clienteDTO = new ClienteDTO(cliente.getNombre(), cliente.getApellido(),
                 cliente.getNumeroIdentidad(), cliente.getTipoIdentidad(), cliente.getTelefono(), cliente.getEmail());
-
         clienteDTO.setId(cliente.getId());
         return clienteDTO;
     }

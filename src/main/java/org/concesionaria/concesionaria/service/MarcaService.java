@@ -31,29 +31,37 @@ public class MarcaService {
     public MarcaDTO create(MarcaDTO marcaDTO) {
         Marca marca = mapToEntity(marcaDTO);
         CheckForExistingMarca(marca.getId());
+
         marca = marcaRepository.save(marca);
+
         marcaDTO.setId(marca.getId());
+
         return marcaDTO;
     }
 
     //mostrar todos las marcas creadas/
     public List<MarcaDTO> retrieveAll(){
+
         List<Marca> marcas = marcaRepository.findAll();
+
         return marcas.stream(). map(marca -> mapToDTO(marca))
                 .collect(Collectors.toList());
     }
 
     //mostrar una marca por id/
     public MarcaDTO retrieveById(Integer id){
+
         Optional<Marca> marca = marcaRepository.findById(id);
         if(marca.isEmpty()){
             throw new ResourceNotFoundException();
         }
+
         return mapToDTO(marca.get());
     }
 
     //eliminar un registro de la tabla marca por id/
     public void delete(Integer marcaId) {
+
         try {
             marcaRepository.deleteById(marcaId);
         } catch (EmptyResultDataAccessException e) {
@@ -64,6 +72,7 @@ public class MarcaService {
 
     //reemplaza todos los campos de un registro de marca/
     public void replace(Integer marcaId, MarcaDTO marcaDto) {
+
         Optional<Marca> marca = marcaRepository.findById(marcaId);
 
         if (!marca.isPresent()) {
@@ -71,10 +80,13 @@ public class MarcaService {
         }
 
         Marca marcaToReplace = marca.get();
+
         marcaToReplace.setNombre(marcaDto.getNombre());
         marcaToReplace.setNacionalidad(marcaDto.getNacionalidad());
+
         marcaRepository.save(marcaToReplace);
 
+        marcaDto.setId(marcaToReplace.getId());
     }
 
     //modifica uno o varios campos de un registro de marca/
@@ -100,15 +112,17 @@ public class MarcaService {
     }
 
     private Marca mapToEntity(MarcaDTO marcaDTO) {
-        Marca marca = new Marca (marcaDTO.getId(), marcaDTO.getNombre(),
-                marcaDTO.getNacionalidad());
-
+        Marca marca = new Marca (marcaDTO.getNombre(),
+                        marcaDTO.getNacionalidad());
+        marcaDTO.setId(marca.getId());
         return marca;
     }
 
     private MarcaDTO mapToDTO(Marca marca) {
         MarcaDTO marcaDTO=new MarcaDTO(marca.getNombre(), marca.getNacionalidad());
+
         marcaDTO.setId(marca.getId());
+
         return marcaDTO;
     }
 

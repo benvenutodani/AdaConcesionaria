@@ -40,19 +40,19 @@ public class ClienteController {
 
     /*Borra un registro de la base de datos*/
     @DeleteMapping("/{clienteId}")
-    public ResponseEntity delete(@PathVariable String clienteId) {
-        clienteService.delete(Integer.valueOf(clienteId));
+    public ResponseEntity delete(@PathVariable Integer clienteId) {
+        clienteService.delete(clienteId);
 
         return new ResponseEntity(HttpStatus.OK);
     }
 
     /*Modifica todos lo campos de un registro*/
     @PutMapping("/{clienteId}")
-    public ResponseEntity replace(@PathVariable String clienteId,
+    public ResponseEntity replace(@PathVariable Integer clienteId,
                                   @RequestBody ClienteDTO clienteDTO) {
-        clienteService.replace(Integer.valueOf(clienteId), clienteDTO);
+        clienteService.replace(clienteId, clienteDTO);
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(clienteDTO,HttpStatus.OK);
     }
 
     /*Modifica uno o varios campos de un registro*/

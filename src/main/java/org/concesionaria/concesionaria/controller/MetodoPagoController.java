@@ -32,22 +32,22 @@ public class MetodoPagoController {
 
         return new ResponseEntity (metodoPagoService.retrieveAll(), HttpStatus.OK);
     }
-    @GetMapping("/{id}")
-    public  ResponseEntity retrieveById(@PathVariable String id){
-        MetodoPagoDTO metodoPagoDTO = metodoPagoService.retrieveById(Integer.valueOf(id));
+    @GetMapping("/{metodoPagoId}")
+    public  ResponseEntity retrieveById(@PathVariable Integer metodoPagoId){
+        MetodoPagoDTO metodoPagoDTO = metodoPagoService.retrieveById(metodoPagoId);
         return new ResponseEntity(metodoPagoDTO,HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable String id){
-        metodoPagoService.delete(Integer.valueOf(id));
+    @DeleteMapping("/{metodoPagoId}")
+    public ResponseEntity delete(@PathVariable Integer metodoPagoId){
+        metodoPagoService.delete(metodoPagoId);
         return new ResponseEntity(HttpStatus.OK);
     }
-    @PutMapping("/{id}")
-    public ResponseEntity replace(@PathVariable String id,
+    @PutMapping("/{metodoPagoid}")
+    public ResponseEntity replace(@PathVariable Integer metodoPagoId,
                                   @RequestBody MetodoPagoDTO metodoPagoDTO){
-        metodoPagoService.replace(Integer.valueOf(id),metodoPagoDTO);
-        return new ResponseEntity(HttpStatus.OK);
+        metodoPagoService.replace(metodoPagoId,metodoPagoDTO);
+        return new ResponseEntity(metodoPagoDTO,HttpStatus.OK);
     }
     @PatchMapping("/{metodoPagoId}")
     public ResponseEntity modify(@PathVariable Integer metodoPagoId,

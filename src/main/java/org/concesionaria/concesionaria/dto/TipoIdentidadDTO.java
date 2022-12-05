@@ -5,6 +5,9 @@ public class TipoIdentidadDTO {
     private String tipo;
     private Integer id;
 
+    public TipoIdentidadDTO() {
+    }
+
     public TipoIdentidadDTO(String tipo) {
         this.tipo = tipo;
     }

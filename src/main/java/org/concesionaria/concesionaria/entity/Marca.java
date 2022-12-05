@@ -22,8 +22,7 @@ public class Marca {
     public Marca() {
     }
 
-    public Marca(Integer id, String nombre, String nacionalidad) {
-        this.id = id;
+    public Marca(String nombre, String nacionalidad) {
         this.nombre = nombre;
         this.nacionalidad = nacionalidad;
     }

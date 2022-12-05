@@ -36,8 +36,8 @@ public class TipoIdentidadController {
     }
 
     @GetMapping("/{tipoIdentidadId}")
-    public ResponseEntity retrieveById(@PathVariable String tipoIdentidadId) {
-        TipoIdentidadDTO tipoIdentidadDTO = tipoIdentidadService.retrieveById(Integer.valueOf(tipoIdentidadId));
+    public ResponseEntity retrieveById(@PathVariable Integer tipoIdentidadId) {
+        TipoIdentidadDTO tipoIdentidadDTO = tipoIdentidadService.retrieveById(tipoIdentidadId);
 
         return new ResponseEntity(tipoIdentidadDTO, HttpStatus.OK);
     }
@@ -52,9 +52,9 @@ public class TipoIdentidadController {
 
 
     @PutMapping("/{tipoIdentidadId}")
-    public ResponseEntity replace(@PathVariable String tipoIdentidadId,
+    public ResponseEntity replace(@PathVariable Integer tipoIdentidadId,
                                   @RequestBody TipoIdentidadDTO tipoIdentidadDTO) {
-        tipoIdentidadService.replace(Integer.valueOf(tipoIdentidadId), tipoIdentidadDTO);
+        tipoIdentidadService.replace(tipoIdentidadId, tipoIdentidadDTO);
 
         return new ResponseEntity(HttpStatus.OK);
     }

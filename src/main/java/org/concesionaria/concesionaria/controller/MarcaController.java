@@ -32,8 +32,8 @@ public class MarcaController {
     }
 
     @GetMapping("/{marcaId}")
-    public ResponseEntity retrieveById(@PathVariable String marcaId) {
-        MarcaDTO marcaDTO = marcaService.retrieveById(Integer.valueOf(marcaId));
+    public ResponseEntity retrieveById(@PathVariable Integer marcaId) {
+        MarcaDTO marcaDTO = marcaService.retrieveById(marcaId);
 
         return new ResponseEntity(marcaDTO, HttpStatus.OK);
     }
@@ -43,10 +43,10 @@ public class MarcaController {
         return new ResponseEntity(HttpStatus.OK);
     }
     @PutMapping("/{marcaId}")
-    public ResponseEntity replace(@PathVariable String marcaId,
+    public ResponseEntity replace(@PathVariable Integer marcaId,
                                   @RequestBody MarcaDTO marcaDTO){
-        marcaService.replace(Integer.valueOf(marcaId),marcaDTO);
-        return new ResponseEntity(HttpStatus.OK);
+        marcaService.replace(marcaId,marcaDTO);
+        return new ResponseEntity(marcaDTO,HttpStatus.OK);
     }
     @PatchMapping("/{marcaId}")
     public ResponseEntity modify(@PathVariable Integer marcaId,

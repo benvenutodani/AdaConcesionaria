@@ -64,7 +64,7 @@ public class AutoService {
             throw new ResourceNotFoundException();
         }
         Auto autoToReplace = auto.get();
-        autoToReplace.setNumeroChasis(autoDto.getNumeroChasis());
+
         autoToReplace.setAnioModelo(autoDto.getAnioModelo());
         autoToReplace.setColor(autoDto.getColor());
         autoToReplace.setMarcaId(autoDto.getMarcaId());
@@ -104,6 +104,7 @@ public class AutoService {
         Auto auto = new Auto(autoDTO.getNumeroChasis(), autoDTO.getModelo(),
                 autoDTO.getAnioModelo(), autoDTO.getColor(),
                 autoDTO.getPrecio(), autoDTO.getMarcaId());
+        autoDTO.setNumeroChasis(auto.getNumeroChasis());
         return auto;
     }
 

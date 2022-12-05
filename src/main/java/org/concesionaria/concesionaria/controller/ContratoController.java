@@ -33,15 +33,15 @@ public class ContratoController {
     }
 
     @GetMapping("/{contratoId}")
-    public ResponseEntity retrieveById(@PathVariable String contratoId){
-        ContratoDTO contratoDTO = contratoService.retrieveById(Integer.valueOf((contratoId)));
+    public ResponseEntity retrieveById(@PathVariable Integer contratoId){
+        ContratoDTO contratoDTO = contratoService.retrieveById(contratoId);
         return new ResponseEntity(contratoDTO,HttpStatus.OK);
     }
 
     /*Borra un registro*/
     @DeleteMapping("/{contratoId}")
-    public ResponseEntity delete(@PathVariable String contratoId){
-        contratoService.delete(Integer.valueOf(contratoId));
+    public ResponseEntity delete(@PathVariable Integer contratoId){
+        contratoService.delete(contratoId);
         return new ResponseEntity(HttpStatus.OK);
     }
 

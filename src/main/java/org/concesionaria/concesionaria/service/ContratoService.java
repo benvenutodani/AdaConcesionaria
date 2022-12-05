@@ -41,14 +41,20 @@ public class ContratoService {
         Optional<Vendedor> vendedor = vendedorRepository.findById(contratoDTO.getVendedor());
         Optional<Auto> auto= autoRepository.findById(contratoDTO.getAuto());
         Optional<MetodoPago> metodoPago= metodoPagoRepository.findById(contratoDTO.getMetodoPago());
+
         if (!cliente.isPresent()|| !vendedor.isPresent()||!auto.isPresent()|| !metodoPago.isPresent()) {
             throw new ResourceNotFoundException();
         }
+
         Contrato contrato = mapToEntity(contratoDTO,cliente.get(),auto.get(),vendedor.get(),metodoPago.get());
+
         contrato.setPrecio(calcularPrecioFinal(contrato));
+
         contrato = contratoRepository.save(contrato);
+
         contratoDTO.setId(contrato.getId());
         contratoDTO.setPrecio(contrato.getPrecio());
+
         return contratoDTO;
     }
 
@@ -112,17 +118,21 @@ public class ContratoService {
         contratoToReplace.setCuotas(contratoDto.getCuotas());
         contratoToReplace.setPrecio(calcularPrecioFinal(contratoToReplace));
 
-
+        contratoDto.setId(contratoToReplace.getId());
+        contratoDto.setPrecio(contratoToReplace.getPrecio());
 
     }
 
     public void modify(Integer contratoId, Map<String, Object> fieldsToModify) {
+
         Optional<Contrato> contrato = contratoRepository.findById(contratoId);
         if (!contrato.isPresent()) {
             throw new ResourceNotFoundException();
         }
+
         Contrato contratoToModify = contrato.get();
         fieldsToModify.forEach((key, value) -> contratoToModify.modifyAttributeValue(key, value));
+
         contratoRepository.save(contratoToModify);
     }
 
@@ -136,9 +146,10 @@ public class ContratoService {
         ContratoDTO contratoDTO = new ContratoDTO(contrato.getCliente().getId(),
                 contrato.getVendedor().getNumeroIdentidad(),
                 contrato.getAuto().getNumeroChasis(), contrato.getMetodoPago().getId(),
-                contrato.getFecha().toString(),contrato.getCuotas(), contrato.getPrecio());
+                contrato.getFecha().toString(),contrato.getCuotas());
 
         contratoDTO.setId(contrato.getId());
+        contratoDTO.setPrecio(contrato.getPrecio());
         return  contratoDTO;
 
     }
@@ -156,15 +167,25 @@ public class ContratoService {
 
     // LocalDate.parse(contratoDto.getFecha(), DATE_TIME_FORMATTER)
     public Double calcularPrecioFinal(Contrato contrato) {
+
         Double precioFinal;
+
         Auto auto= contrato.getAuto();
+
         if(contrato.getMetodoPago().getId() == 1){
+
             precioFinal= auto.getPrecio() * 0.05;
+
         }else if(contrato.getMetodoPago().getId() == 2 || contrato.getMetodoPago().getId()==3){
+
             precioFinal= auto.getPrecio()/0.10;
+
         }else{
+
             precioFinal= auto.getPrecio()*0.15;
+
         }
+
         return precioFinal;
     }
 

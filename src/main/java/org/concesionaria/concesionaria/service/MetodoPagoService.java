@@ -31,6 +31,8 @@ public class MetodoPagoService {
 
         metodoPagoRepository.save(metodoPago);
 
+        metodoPagoDTO.setId(metodoPago.getId());
+
         return metodoPagoDTO;
 
     }
@@ -55,9 +57,9 @@ public class MetodoPagoService {
 
     }
     
-    public void delete (Integer id){
+    public void delete (Integer metodoPagoid){
         try {
-            metodoPagoRepository.deleteById(id);
+            metodoPagoRepository.deleteById(metodoPagoid);
         } catch (EmptyResultDataAccessException e) {
             throw new ResourceNotFoundException();
         }
@@ -65,16 +67,19 @@ public class MetodoPagoService {
 
     public void replace(Integer metodoPagoId, MetodoPagoDTO metodoPagoDTO) {
         Optional<MetodoPago> metodoPago = metodoPagoRepository.findById(metodoPagoId);
+
         if (!metodoPago.isPresent()) {
             throw new ResourceNotFoundException();
         }
+
         MetodoPago metodoPagoToReplace = metodoPago.get();
+
         metodoPagoToReplace.setDescripcion(metodoPagoDTO.getDescripcion());
         metodoPagoToReplace.setTipo(metodoPagoDTO.getTipo());
     }
 
-    public void modify(Integer id, Map<String, Object> fieldsToModify) {
-        Optional<MetodoPago> metodoPago = metodoPagoRepository.findById(id);
+    public void modify(Integer metodoPagoId, Map<String, Object> fieldsToModify) {
+        Optional<MetodoPago> metodoPago = metodoPagoRepository.findById(metodoPagoId);
 
         if (!metodoPago.isPresent()) {
             throw new ResourceNotFoundException();
@@ -88,9 +93,9 @@ public class MetodoPagoService {
     }
 
     //------------------------------------------------------------------------------------------------------------------------
-        private void CheckForExistingMetodoPago(Integer id){
+        private void CheckForExistingMetodoPago(Integer metodoPagoId){
 
-        if (metodoPagoRepository.existsById(id)) {
+        if (metodoPagoRepository.existsById(metodoPagoId)) {
             throw new ExistingResourceException();
         }
     }
@@ -98,18 +103,18 @@ public class MetodoPagoService {
     private MetodoPago mapToEntity(MetodoPagoDTO metodoPagoDTO) {
         MetodoPago metodoPago = new MetodoPago(metodoPagoDTO.getTipo(),
                 metodoPagoDTO.getDescripcion());
+
         metodoPagoDTO.setId(metodoPago.getId());
+
         return metodoPago;
     }
 
     private MetodoPagoDTO mapToDTO(MetodoPago metodoPago) {
         MetodoPagoDTO metodoPagoDTO = new MetodoPagoDTO(metodoPago.getTipo(), metodoPago.getDescripcion());
+
         metodoPagoDTO.setId(metodoPago.getId());
+
         return metodoPagoDTO;
     }
 
-
-
-
-   
 }

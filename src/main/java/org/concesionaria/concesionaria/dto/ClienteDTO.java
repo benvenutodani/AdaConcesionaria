@@ -21,7 +21,8 @@ public class ClienteDTO {
 
     private String email;
 
-
+    public ClienteDTO() {
+    }
 
     public ClienteDTO(String nombre, String apellido, String numeroIdentidad, Integer tipoIdentidad, String telefono, String email) {
         this.nombre = nombre;
@@ -31,11 +32,6 @@ public class ClienteDTO {
         this.telefono = telefono;
         this.email = email;
     }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
 
     public Integer getId() {
         return id;
@@ -63,6 +59,34 @@ public class ClienteDTO {
 
     public String getEmail() {
         return email;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+
+    public void setNumeroIdentidad(String numeroIdentidad) {
+        this.numeroIdentidad = numeroIdentidad;
+    }
+
+    public void setTipoIdentidad(Integer tipoIdentidad) {
+        this.tipoIdentidad = tipoIdentidad;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
 

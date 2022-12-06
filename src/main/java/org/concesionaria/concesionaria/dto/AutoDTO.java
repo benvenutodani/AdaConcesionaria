@@ -19,6 +19,8 @@ public class AutoDTO {
 
     private Double precio;
 
+    private Boolean vendido;
+
     public AutoDTO() {
     }
 
@@ -56,6 +58,10 @@ public class AutoDTO {
         return precio;
     }
 
+    public Boolean getVendido() {
+        return vendido;
+    }
+
     public void setNumeroChasis(String numeroChasis) {
         this.numeroChasis = numeroChasis;
     }
@@ -78,5 +84,9 @@ public class AutoDTO {
 
     public void setPrecio(Double precio) {
         this.precio = precio;
+    }
+
+    public void setVendido(Boolean vendido) {
+        this.vendido = vendido;
     }
 }

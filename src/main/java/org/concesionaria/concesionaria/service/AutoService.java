@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AutoService {
+    private final String MENSAJE= "el auto no existe";
     private final AutoRepository autoRepository;
 
     public AutoService(AutoRepository autoRepository) {
@@ -24,7 +25,9 @@ public class AutoService {
     public AutoDTO create(AutoDTO autoDto) {
         Auto auto = mapToEntity(autoDto);
         checkForExistingAuto(auto.getNumeroChasis());
+        auto.setVendido(false);
         auto = autoRepository.save(auto);
+        autoDto.setVendido(auto.getVendido());
         return autoDto;
     }
 
@@ -40,8 +43,8 @@ public class AutoService {
     //get by id/
     public AutoDTO retrieveById(String autoId) throws ResourceNotFoundException {
         Optional<Auto> auto = autoRepository.findById(autoId);
-        if (auto.isEmpty()) {
-            throw new ResourceNotFoundException();
+        if (!auto.isPresent()) {
+            throw new ResourceNotFoundException(MENSAJE);
         }
         return mapToDto(auto.get());
     }
@@ -61,7 +64,7 @@ public class AutoService {
     public void replace(String autoId, AutoDTO autoDto) {
         Optional<Auto> auto = autoRepository.findById(autoId);
         if (!auto.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
         Auto autoToReplace = auto.get();
 
@@ -78,7 +81,7 @@ public class AutoService {
     public void modify(String autoId, Map<String, Object> fieldsToModify) {
         Optional<Auto> auto = autoRepository.findById(autoId);
         if (!auto.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
         Auto autoToModify = auto.get();
         fieldsToModify.forEach((key, value) -> autoToModify.modifyAttributeValue(key, value));
@@ -87,7 +90,7 @@ public class AutoService {
     //-------------------------------------------------------------------------------------------------------------------------
     private void checkForExistingAuto(String autoId) {
         if (autoRepository.existsById(autoId)) {
-            throw new ExistingResourceException();
+            throw new ExistingResourceException(MENSAJE);
         }
     }
 
@@ -96,6 +99,7 @@ public class AutoService {
         AutoDTO autoDTO = new AutoDTO(auto.getNumeroChasis(), auto.getModelo(), auto.getMarcaId(),
                 auto.getAnioModelo(), auto.getColor(), auto.getPrecio());
         autoDTO.setNumeroChasis(auto.getNumeroChasis());
+        autoDTO.setVendido(auto.getVendido());
         return autoDTO;
     }
 
@@ -105,6 +109,8 @@ public class AutoService {
                 autoDTO.getAnioModelo(), autoDTO.getColor(),
                 autoDTO.getPrecio(), autoDTO.getMarcaId());
         autoDTO.setNumeroChasis(auto.getNumeroChasis());
+        autoDTO.setVendido(auto.getVendido());
+
         return auto;
     }
 

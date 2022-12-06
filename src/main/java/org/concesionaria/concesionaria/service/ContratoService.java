@@ -2,10 +2,12 @@ package org.concesionaria.concesionaria.service;
 
 import org.concesionaria.concesionaria.dto.ContratoDTO;
 import org.concesionaria.concesionaria.entity.*;
+import org.concesionaria.concesionaria.exceptions.ExistingResourceException;
 import org.concesionaria.concesionaria.exceptions.ResourceNotFoundException;
 import org.concesionaria.concesionaria.repository.*;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.beanvalidation.SpringValidatorAdapter;
 
 import java.time.LocalDate;
 
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ContratoService {
+    private final String MENSAJE= "EL contrato no existe";
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
     public final ContratoRepository contratoRepository;
     public final ClienteRepository clienteRepository;
@@ -37,21 +40,25 @@ public class ContratoService {
     /*creacion de un contrato*/
     public ContratoDTO create(ContratoDTO contratoDTO)
     {
+
         Optional<Cliente> cliente = clienteRepository.findById(contratoDTO.getCliente());
         Optional<Vendedor> vendedor = vendedorRepository.findById(contratoDTO.getVendedor());
         Optional<Auto> auto= autoRepository.findById(contratoDTO.getAuto());
         Optional<MetodoPago> metodoPago= metodoPagoRepository.findById(contratoDTO.getMetodoPago());
 
         if (!cliente.isPresent()|| !vendedor.isPresent()||!auto.isPresent()|| !metodoPago.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
+        }
+
+        if(auto.get().getVendido()){
+            throw new ExistingResourceException("El auto no se encuentra a para la venta");
         }
 
         Contrato contrato = mapToEntity(contratoDTO,cliente.get(),auto.get(),vendedor.get(),metodoPago.get());
 
         contrato.setPrecio(calcularPrecioFinal(contrato));
-
+        contrato.getAuto().setVendido(true);
         contrato = contratoRepository.save(contrato);
-
         contratoDTO.setId(contrato.getId());
         contratoDTO.setPrecio(contrato.getPrecio());
 
@@ -73,8 +80,8 @@ public class ContratoService {
     /*mostrar un contrato por id */
     public ContratoDTO retrieveById(Integer contratoId) {
         Optional<Contrato> contrato = contratoRepository.findById(contratoId);
-        if (contrato.isEmpty()) {
-            throw new ResourceNotFoundException();
+        if (!contrato.isPresent()) {
+            throw new ResourceNotFoundException(MENSAJE);
         }
         return mapToDTO(contrato.get());
     }
@@ -84,7 +91,7 @@ public class ContratoService {
         try {
             contratoRepository.deleteById(contratoId);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
     }
 
@@ -92,7 +99,7 @@ public class ContratoService {
 
         Optional<Contrato> contrato = contratoRepository.findById(contratoId);
         if (!contrato.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
 
         Optional<Cliente> cliente = clienteRepository.findById(contratoDto.getCliente());
@@ -104,7 +111,7 @@ public class ContratoService {
         Optional<MetodoPago> metodoPago = metodoPagoRepository.findById(contratoDto.getMetodoPago());
 
         if (!cliente.isPresent() || !vendedor.isPresent() || !auto.isPresent() || !metodoPago.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException("El/los  recursos no existe");
         }
 
         Contrato contratoToReplace = contrato.get();
@@ -127,7 +134,7 @@ public class ContratoService {
 
         Optional<Contrato> contrato = contratoRepository.findById(contratoId);
         if (!contrato.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
 
         Contrato contratoToModify = contrato.get();

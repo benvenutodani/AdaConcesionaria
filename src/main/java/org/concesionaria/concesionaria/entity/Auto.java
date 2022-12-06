@@ -26,6 +26,8 @@ public class Auto {
     @JoinColumn(name = "marca_id", nullable = false)
     private Integer marcaId;
 
+    private Boolean vendido;
+
     @OneToMany(mappedBy = "auto")
     private List<Contrato> contratos;
 
@@ -66,6 +68,10 @@ public class Auto {
         return precio;
     }
 
+    public Boolean getVendido() {
+        return vendido;
+    }
+
     public void setNumeroChasis(String numeroChasis) {
         this.numeroChasis = numeroChasis;
     }
@@ -88,6 +94,10 @@ public class Auto {
 
     public void setMarcaId(Integer marcaId) {
         this.marcaId = marcaId;
+    }
+
+    public void setVendido(Boolean vendido) {
+        this.vendido = vendido;
     }
 
     public void modifyAttributeValue(String attributeName, Object newValue) {

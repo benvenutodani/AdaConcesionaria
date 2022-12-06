@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @Service
 public class VendedorService {
     private final VendedorRepository vendedorRepository;
-
+    private final String MENSAJE= "EL vendedor no existe";
     public VendedorService(VendedorRepository vendedorRepository) {
         this.vendedorRepository = vendedorRepository;
     }
@@ -45,8 +45,8 @@ public class VendedorService {
     public VendedorDTO retrieveById(String vendedorId) {
 
         Optional<Vendedor> vendedor = vendedorRepository.findById(vendedorId);
-        if (vendedor.isEmpty()) {
-            throw new ResourceNotFoundException();
+        if (!vendedor.isPresent()) {
+            throw new ResourceNotFoundException(MENSAJE);
         }
         return mapToDTO(vendedor.get());
 
@@ -57,7 +57,7 @@ public class VendedorService {
         try {
             vendedorRepository.deleteById(vendedorId);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
     }
 
@@ -65,7 +65,7 @@ public class VendedorService {
     public void replace(String vendedorId, VendedorDTO vendedorDto) {
         Optional<Vendedor> vendedor = vendedorRepository.findById(vendedorId);
         if (!vendedor.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
         Vendedor vendedorToReplace = vendedor.get();
         //vendedorToReplace.setCuil(vendedorDto.getCuil());
@@ -82,7 +82,7 @@ public class VendedorService {
     public void modify(String vendedorId, Map<String, Object> fieldsToModify) {
         Optional<Vendedor> vendedor = vendedorRepository.findById(vendedorId);
         if (!vendedor.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
         Vendedor vendedorToModify = vendedor.get();
 

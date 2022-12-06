@@ -5,6 +5,7 @@ import org.concesionaria.concesionaria.exceptions.ResourceNotFoundException;
 import org.concesionaria.concesionaria.dto.ClienteDTO;
 import org.concesionaria.concesionaria.entity.Cliente;
 import org.concesionaria.concesionaria.repository.ClienteRepository;
+import org.hibernate.procedure.spi.ParameterRegistrationImplementor;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class ClienteService {
+
+    private final String MENSAJE = "El cliente no existe";
     private final ClienteRepository clienteRepository;
 
     public ClienteService(ClienteRepository clienteRepository) {
@@ -23,6 +26,7 @@ public class ClienteService {
     /*Método que recibe un cliente y lo guarda en la base de datos*/
     public ClienteDTO create(ClienteDTO clienteDTO) {
         Cliente cliente = mapToEntity(clienteDTO);
+
         cliente = clienteRepository.save(cliente);
         clienteDTO.setId(cliente.getId());
 
@@ -44,8 +48,8 @@ public class ClienteService {
     /*Método para bucar un cliente desde la base de datos con el id del cliente*/
     public ClienteDTO retrieveById(Integer clienteId) {
         Optional<Cliente> cliente = clienteRepository.findById(clienteId);
-        if (cliente.isEmpty()) {
-            throw new ResourceNotFoundException();
+        if (!cliente.isPresent()) {
+            throw new ResourceNotFoundException(MENSAJE);
         }
         return mapToDTO(cliente.get());
     }
@@ -55,7 +59,7 @@ public class ClienteService {
         try {
             clienteRepository.deleteById(clienteId);
         } catch (EmptyResultDataAccessException e) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
     }
 
@@ -65,7 +69,7 @@ public class ClienteService {
         Optional<Cliente> cliente = clienteRepository.findById(clienteId);
 
         if (!cliente.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
 
         Cliente clienteToReplace = cliente.get();
@@ -86,7 +90,7 @@ public class ClienteService {
         Optional<Cliente> cliente = clienteRepository.findById(clienteId);
 
         if (!cliente.isPresent()) {
-            throw new ResourceNotFoundException();
+            throw new ResourceNotFoundException(MENSAJE);
         }
 
         Cliente clienteToModify = cliente.get();
@@ -99,7 +103,7 @@ public class ClienteService {
     //-----------------------------------------------------------------------------------------------------------------------------
     private void checkForExistingCliente(Integer clienteId) {
         if (clienteRepository.existsById(clienteId)) {
-            throw new ExistingResourceException();
+            throw new ExistingResourceException(MENSAJE);
         }
     }
 
